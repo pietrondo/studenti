@@ -1,0 +1,19 @@
+<head>
+<title>Leaderboard</title>
+</head>
+<body>
+<h1 >Studenti</h1>
+    {{> studenti}}
+
+</body>
+
+<template name="studenti">
+<table class="table">
+    <tr><th>Studente</th> <th>Giorno</th> <th>Presente</th></tr>
+    {{#each studenti}}
+    <tr><td class="{{selectedClass}}">{{nome}}</td> <td>{{giorno}}</td> <td>{{presente}}</td></tr>{{/each}}
+     
+</table>
+
+</template>
+
