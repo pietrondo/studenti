@@ -1,19 +1,37 @@
 <head>
 <title>Leaderboard</title>
 </head>
+
 <body>
-<h1 >Studenti</h1>
+{{> loginButtons}}
+<h1 >Studenti Presenti</h1>
     {{> studenti}}
+            {{> aggiungistudenti}}
 
 </body>
 
 <template name="studenti">
 <table class="table">
-    <tr><th>Studente</th> <th>Giorno</th> <th>Presente</th></tr>
+    <tr><th>Studente</th> <th>Giorno</th> <th>Presenze</th><th>Creato da</th></tr>
     {{#each studenti}}
-    <tr><td class="{{selectedClass}}">{{nome}}</td> <td>{{giorno}}</td> <td>{{presente}}</td></tr>{{/each}}
+    <tr><td class="{{selectedClass}}">{{nome}}</td> <td>{{giorno}}</td> <td>{{presenze}}</td><td>{{creato.name}}</td></tr>{{/each}}
      
 </table>
-
+    <input type="button" class="increment" value="Diamogli la presentza">
+    <input type="button" class="decrement" value="Togliamogliela">
+    {{#if mostraStudenti}}
+    <p>Lo studente mostrato è {{mostraStudenti.nome}}</p>
+{{/if}}
 </template>
 
+<template name="aggiungistudenti">
+    {{#if currentUser}}
+<form>
+<input type="text" name="studentenom">
+<input type="submit" value="Aggiungi Studente">
+</form>
+    <form>
+    <input type="button" class="remove" value="rimuovi studente">
+        </form>
+    {{/if}}
+</template>
