@@ -2,6 +2,8 @@ console.log("hello world");
 Studenti = new Mongo.Collection('studenti');
 if (Meteor.isClient) {
     Meteor.subscribe("stud");
+        Meteor.subscribe("user");
+
     Template.studenti.events({
             'click td': function () {
                 console.log("You clicked td" + this.name);
@@ -74,6 +76,9 @@ Meteor.call('inserisciStudenti', studente);
 if (Meteor.isServer) {
     Meteor.publish('stud', function(){
 return Studenti.find()
+});
+    Meteor.publish('user', function(){
+return Meteor.userId();
 });
     Meteor.methods({
     
