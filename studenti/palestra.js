@@ -66,13 +66,17 @@ Meteor.call('inserisciStudenti', studente);
 
 
     });
+    Accounts.ui.config({
+  passwordSignupFields: "USERNAME_ONLY"
+});
+
 }
 
 if (Meteor.isServer) {
     Meteor.publish('stud', function(){
         var currentUserId = this.userId;
 return Studenti.find({creato: currentUserId})
-});
+}); 
     
     
     Meteor.methods({
@@ -93,9 +97,9 @@ return Studenti.find({creato: currentUserId})
                 
     },
         'inserisciStudenti': function (playerNameVar) {
-            var currentUserId = Meteor.userId();
-            console.log(currentUserId);
-            console.log(Studenti.findOne("KRdE4kGWJCn2WizTY"));
+            var currentUserId = this.userId;
+            console.log(this.user);
+            console.log(Meteor.user().username);
             Studenti.insert({
                 nome: playerNameVar,
                 giorno:"febbraio",

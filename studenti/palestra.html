@@ -12,9 +12,9 @@
 
 <template name="studenti">
 <table class="table">
-    <tr><th>Studente</th> <th>Giorno</th> <th>Presenze</th><th>Creato da</th></tr>
+    <tr><th>Studente</th> <th>Giorno</th> <th>Presenze</th></tr>
     {{#each studenti}}
-    <tr><td class="{{selectedClass}}">{{nome}}</td> <td>{{giorno}}</td> <td>{{presenze}}</td><td>{{creato}}</td></tr>{{/each}}
+    <tr><td class="{{selectedClass}}">{{nome}}</td> <td>{{giorno}}</td> <td>{{presenze}}</td></tr>{{/each}}
      
 </table>
     <input type="button" class="increment" value="Diamogli la presentza">
