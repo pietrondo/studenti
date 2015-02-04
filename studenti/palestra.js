@@ -15,7 +15,7 @@ if (Meteor.isClient) {
                 var selezione = Session.get('SceltoStudente');
                 Studenti.update(selezione, {
                     $inc: {
-                        presenze: 1
+                        presenze: +1
                     }
                 });
 
