@@ -3,7 +3,7 @@ Studenti = new Mongo.Collection('studenti');
 if (Meteor.isClient) {
     Meteor.subscribe("stud");
         Meteor.subscribe("user");
-
+ 
     Template.studenti.events({
             'click td': function () {
                 console.log("You clicked td" + this.name);
@@ -15,20 +15,15 @@ if (Meteor.isClient) {
                 Meteor.call('sendLogMessage');
 
                 var selezione = Session.get('SceltoStudente');
-                Studenti.update(selezione, {
-                    $inc: {
-                        presenze: +1
-                    }
-                });
+                Meteor.call('modifyPlayerScore', selezione);
+                
 
             },
             'click .decrement': function () {
                 var selezione = Session.get('SceltoStudente');
-                Studenti.update(selezione, {
-                    $inc: {
-                        presenze: -1
-                    }
-                });
+                                Meteor.call('abbassa', selezione);
+
+                
 
             }
 
@@ -75,13 +70,28 @@ Meteor.call('inserisciStudenti', studente);
 
 if (Meteor.isServer) {
     Meteor.publish('stud', function(){
-return Studenti.find()
+        var currentUserId = this.userId;
+return Studenti.find({creato: currentUserId})
 });
-    Meteor.publish('user', function(){
-return Meteor.userId();
-});
-    Meteor.methods({
     
+    
+    Meteor.methods({
+        'abbassa': function(sele){
+        Studenti.update(sele, {
+                    $inc: {
+                        presenze: -1
+                    }
+                });
+        
+        },
+    'modifyPlayerScore': function(selectedPlayer){
+        Studenti.update(selectedPlayer, {
+                    $inc: {
+                        presenze: +1
+                    }
+                });
+                
+    },
         'inserisciStudenti': function (playerNameVar) {
             var currentUserId = Meteor.userId();
             console.log(currentUserId);
